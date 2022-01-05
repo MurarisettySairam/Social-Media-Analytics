@@ -16,7 +16,7 @@ def testParseName():
     print("Testing parseName()...", end="")
     assert(parseName("From: Steny Hoyer (Representative from Maryland)") == "Steny Hoyer")
     assert(parseName("From: Mitch (Senator from Kentucky)") == "Mitch")
-    assert(parseName("From: Stephanie Rosenthal (Prof from PA)") == "Stephanie Rosenthal")
+    assert(parseName("From: Stephanie Rosenthal (Prof from PA)")== "Stephanie Rosenthal")
     assert(parseName("From: Kelly (Senator from Pennsylvania)") == "Kelly")
     print("... done!")
 
