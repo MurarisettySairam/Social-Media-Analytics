@@ -218,7 +218,14 @@ Parameters: dataframe
 Returns: dict mapping strs to ints
 '''
 def getHashtagRates(data):
-    return
+    hashtag={}
+    for i in data["hashtags"]:
+        for j in i:
+            if len(j)!=0 and j not in hashtag:
+                hashtag[j]=1
+            else:
+                hashtag[j]+=1
+    return hashtag
 
 
 '''
@@ -349,7 +356,7 @@ if __name__ == "__main__":
     stateDf=makeDataFrame("data/statemappings.csv")
     addColumns(df,stateDf)
     addSentimentColumn(df)
-    test.testGetDataForRegion(df)
+    test.testGetHashtagRates(df)
     
     
     ## Uncomment these for Week 2 ##
