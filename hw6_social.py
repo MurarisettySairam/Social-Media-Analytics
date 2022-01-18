@@ -198,7 +198,17 @@ Parameters: dataframe ; str
 Returns: dict mapping strs to (dicts mapping strs to ints)
 '''
 def getDataForRegion(data, colName):
-    return
+    d={}
+    for i,c in data.iterrows():
+        key=c["region"]
+        if key not in d:
+            d[key]={}
+        if c[colName] not in d[key]:
+            d[key][c[colName]]=1
+        else:
+            d[key][c[colName]]+=1
+    return d
+    
 
 
 '''
@@ -335,15 +345,13 @@ if __name__ == "__main__":
     # test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     # test.runWeek1()
-    df = makeDataFrame("data/politicaldata.csv")
-    stateDf = makeDataFrame("data/statemappings.csv")
-    addColumns(df, stateDf)
+    df=makeDataFrame("data/politicaldata.csv")
+    stateDf=makeDataFrame("data/statemappings.csv")
+    addColumns(df,stateDf)
     addSentimentColumn(df)
-    test.testGetDataCountByState(df)
-
+    test.testGetDataForRegion(df)
     
-
-
+    
     ## Uncomment these for Week 2 ##
     """print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
     test.week2Tests()
