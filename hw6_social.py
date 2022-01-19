@@ -327,6 +327,16 @@ Parameters: dataframe
 Returns: None
 '''
 def graphHashtagSentimentByFrequency(data):
+    h=getHashtagRates(data)
+    top50=mostCommonHashtags(h, 50)
+    hashtaglist=[]
+    freqlist=[]
+    sentilist=[]
+    for hashtag in top50:
+        hashtaglist.append(hashtag)
+        freqlist.append(top50[hashtag])
+        sentilist.append(getHashtagSentiment(data, hashtag))
+    scatterPlot(freqlist,sentilist,hashtaglist,"Top 50 Hastags v/s Sentiment")
     return
 
 
