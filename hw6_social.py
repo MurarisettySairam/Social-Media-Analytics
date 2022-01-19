@@ -286,9 +286,14 @@ Parameters: dict mapping strs to ints ; dict mapping strs to ints ; int ; str
 Returns: None
 '''
 def graphTopNStates(stateCounts, stateFeatureCounts, n, title):
+    d={}
+    for i,j in stateFeatureCounts.items():
+        for h,g in stateCounts.items():
+            if h==i:
+                d[i]=j/g
+    new=mostCommonHashtags(d, n)                        
+    graphStateCounts(new,title)
     return
-
-
 '''
 graphRegionComparison(regionDicts, title)
 #4 [Hw6]
