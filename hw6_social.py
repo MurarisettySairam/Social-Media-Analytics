@@ -301,8 +301,24 @@ Parameters: dict mapping strs to (dicts mapping strs to ints) ; str
 Returns: None
 '''
 def graphRegionComparison(regionDicts, title):
+    f=[]
+    region1=[]
+    region2=[]
+    for r in regionDicts:
+        for f in regionDicts[r]:
+            if f not in f:
+                f.append(f)
+        region1.append(r)
+    for r in regionDicts:
+        temp=[]
+        for f in f:
+            if f not in regionDicts[r]:
+                temp.append(0)
+            else:
+                temp.append(regionDicts[r][f])
+        region2.append(temp)
+    sideBySideBarPlots(f, region1, region2, title)
     return
-
 
 '''
 graphHashtagSentimentByFrequency(data)
