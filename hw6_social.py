@@ -268,7 +268,14 @@ Parameters: dict mapping strs to ints ; str
 Returns: None
 '''
 def graphStateCounts(stateCounts, title):
-    import matplotlib.pyplot as plt
+    state=[i for i in stateCounts.keys()]
+    sum=[j for j in stateCounts.values()]
+    plt.bar(state, sum, width=0.6)
+    plt.xticks(ticks=list(range(len(state))), labels=state, rotation="vertical")
+    plt.xlabel("States")
+    plt.ylabel("Values of states")
+    plt.title(title)
+    plt.show()
     return
 
 
@@ -359,15 +366,14 @@ def scatterPlot(xValues, yValues, labels, title):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    # test.week1Tests()
-    print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
+    # print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    # # test.week1Tests()
+    # print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     # test.runWeek1()
-    df=makeDataFrame("data/politicaldata.csv")
-    stateDf=makeDataFrame("data/statemappings.csv")
-    addColumns(df,stateDf)
-    addSentimentColumn(df)
-    test.testGetHashtagSentiment(df)
+    # df=makeDataFrame("data/politicaldata.csv")
+    # stateDf=makeDataFrame("data/statemappings.csv")
+    # addColumns(df,stateDf)
+    # addSentimentColumn(df)
     
     
     ## Uncomment these for Week 2 ##
@@ -377,5 +383,6 @@ if __name__ == "__main__":
     test.runWeek2()"""
 
     ## Uncomment these for Week 3 ##
-    """print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek3()"""
+    print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
+    test.runWeek3()
+
