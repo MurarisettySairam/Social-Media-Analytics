@@ -25,7 +25,8 @@ Parameters: str
 Returns: dataframe
 '''
 def makeDataFrame(filename):
-    return
+    df=pd.read_csv(filename)
+    return df
 
 
 '''
@@ -35,7 +36,13 @@ Parameters: str
 Returns: str
 '''
 def parseName(fromString):
-    return
+    for name in fromString.split("\n"):
+        s=name.find(":")
+        name=name[s+1:]
+        end=name.find("(")
+        name=name[:end]
+        name=name.strip()
+    return name
 
 
 '''
@@ -45,7 +52,13 @@ Parameters: str
 Returns: str
 '''
 def parsePosition(fromString):
-    return
+    for position in fromString.split("\n"):
+        s=position.find("(")
+        position=position[s+1:]
+        end=position.find(" from")
+        position=position[:end]
+        position=position.strip()
+    return position
 
 
 '''
@@ -55,7 +68,13 @@ Parameters: str
 Returns: str
 '''
 def parseState(fromString):
-    return
+    for state in fromString.split("\n"):
+        s=state.find("from")
+        state=state[s+4:]
+        end=state.find(")")
+        state=state[:end]
+        state=state.strip()
+    return state
 
 
 '''
@@ -65,7 +84,18 @@ Parameters: str
 Returns: list of strs
 '''
 def findHashtags(message):
-    return
+    hashtags=message.split("#")
+    s=""
+    list=[]
+    for i in hashtags[1:]:
+        for j in i:
+            if j not in endChars:
+                s+=j
+            else:
+                break
+        list.append('#'+s)
+        s=""
+    return list
 
 
 '''
@@ -75,7 +105,8 @@ Parameters: dataframe ; str
 Returns: str
 '''
 def getRegionFromState(stateDf, state):
-    return
+    state=stateDf.loc[stateDf['state'] == state,'region']
+    return state.values[0]
 
 
 '''
@@ -85,7 +116,23 @@ Parameters: dataframe ; dataframe
 Returns: None
 '''
 def addColumns(data, stateDf):
-    return
+    names=[]
+    position=[]
+    state=[]
+    region=[]
+    hashtags=[]
+    for i,j in data.iterrows():
+        names.append(parseName(j["label"]))
+        position.append(parsePosition(j["label"]))
+        state.append(parseState(j["label"]))
+        region.append(getRegionFromState(stateDf,parseState(j["label"])))
+        hashtags.append(findHashtags(j["text"]))
+    data['name']=names
+    data['position']=position
+    data['state']=state
+    data['region']=region
+    data['hashtags']=hashtags
+    return None
 
 
 ### PART 2 ###
@@ -263,9 +310,12 @@ def scatterPlot(xValues, yValues, labels, title):
 # This code runs the test cases to check your work
 if __name__ == "__main__":
     print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
-    test.week1Tests()
+    # test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek1()
+    # test.runWeek1()
+    test.testAddColumns()
+    
+
 
     ## Uncomment these for Week 2 ##
     """print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
